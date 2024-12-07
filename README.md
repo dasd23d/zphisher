@@ -1,7 +1,7 @@
 # Zphisher
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/wanzxploit/IP-LOC/refs/heads/main/logo.png" alt="Logo">
+  <img src="https://raw.githubusercontent.com/wanzxploit/zphisher/refs/heads/master/logo.png" alt="Logo">
 </p>
 
 <p align="center">
@@ -125,7 +125,7 @@ Proyek ini adalah hasil forked dari repositori [Zphisher](https://github.com/htr
 ## Preview Alur Kerja
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/wanzxploit/IP-LOC/refs/heads/main/workflow.gif" alt="Workflow">
+  <img src="https://raw.githubusercontent.com/wanzxploit/zphisher/refs/heads/master/workflow.gif" alt="Workflow">
 </p>
 
 ---
