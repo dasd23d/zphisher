@@ -1,0 +1,109 @@
+/* Estilos generales */
+body {
+
+    font-family: 'Arial', sans-serif;
+    background-color: #e4042b;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.login-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-logo {
+    width: 150px; /* Logo más grande */
+    height: 150px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+}
+
+/* Nuevo estilo para el título */
+h3 {
+    font-size: 23px;
+    color: #e4042b;
+    text-transform: uppercase; /* Convierte el texto a mayúsculas */
+    letter-spacing: 2px; /* Añade espacio entre letras */
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    position: relative;
+    padding-bottom: 5px;
+}
+
+
+
+/* Estilos generales */
+p {
+    margin-bottom: 10px;
+}
+
+/* Estilos para los inputs */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+/* Sombra roja en el borde al hacer clic */
+.form-group input:focus {
+    border-color: #e4042b !important; /* Borde rojo específico */
+    box-shadow: 0px 0px 8px rgba(228, 4, 43, 0.5) !important; /* Sombra roja */
+    outline: none;
+}
+
+/* Botón de iniciar sesión */
+button {
+    background-color: #e4042b; /* Rojo específico */
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:disabled {
+    background-color: #ccc;
+}
+
+button:hover:not(:disabled) {
+    background-color: #d6391f;
+}
+
+/* Pie de página al final */
+.footer-text {
+    text-align: center;
+    font-size: 12px;
+    color: #ffffff;
+    padding: 5px 0;
+    background-color: #e4042b;
+}
+
